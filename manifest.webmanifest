@@ -1,0 +1,24 @@
+{
+  "id": "./",
+  "name": "Little Steps \u00b7 Kids Routine Companion",
+  "short_name": "Little Steps",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f7fc",
+  "theme_color": "#5346dc",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

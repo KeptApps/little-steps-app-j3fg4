@@ -1,0 +1,20 @@
+'use strict';
+// Buyer and demo use separate storage. There is no server-side purchase verification.
+const releaseConfig=window.LITTLE_STEPS_CONFIG;
+const releaseRender=render;
+render=function(){releaseRender();if(view==='settings'&&!state.session&&!state.activity&&!finish){const main=app.querySelector('main');if(main){const block=document.createElement('section');block.className='install-help';block.innerHTML='<h3>Keep Little Steps close by</h3><p><strong>iPhone / iPad:</strong> open this page in Safari, tap Share, then Add to Home Screen.<br><strong>Android:</strong> open in Chrome, open its menu and choose Add to Home screen or Install app when offered.</p><p>Open the hosted app once online before using it offline. Keep backups: browser data is local to this device. Read-aloud voices depend on your browser.</p><p><a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Picture icon credits: Twemoji</a></p>';main.appendChild(block)}}};
+if(releaseConfig.mode==='demo'){
+ const seedDemo=()=>{state=initial();state.children[0].name='Sam';enrichState(state);const c=child();c.routines=c.routines.map(r=>({...r,steps:r.steps.slice(0,3)}));c.stars=12;c.earned=Array.from({length:12},(_,i)=>'sample:'+i);c.extra.buddy='milo';state.session=null;state.activity=null;finish=null;parentUnlocked=false;view='today';calmActivity=null;breathRunning=false;render()};
+ save=function(){saveError=false};
+ const demoRender=render;
+ render=function(){demoRender();const banner=document.createElement('div');banner.className='release-banner';banner.innerHTML='<div><strong>FREE DEMO</strong> · Try sample routines as Sam. Progress resets when you refresh.</div><div class="row"><button type="button" id="reset-demo">Reset demo</button><a href="'+esc(releaseConfig.purchaseUrl)+'" target="_blank" rel="noopener noreferrer">Get the full app on Etsy ↗</a></div>';app.prepend(banner);const footer=app.querySelector('.footnote');if(footer)footer.textContent='Free demo · Sample data only · Progress resets on refresh';banner.querySelector('#reset-demo').onclick=()=>{confirmDialog('Reset the demo?','This clears your practice progress and restores the sample routines.',seedDemo)};if(view==='settings'&&!state.session&&!state.activity){for(const input of app.querySelectorAll('input')){if(input.type!=='checkbox')input.disabled=true}const note=document.createElement('p');note.className='demo-locked-note';note.textContent='Preview only. The full version lets you name children, edit routines, create rewards, print charts and keep backups.';app.querySelector('main')?.prepend(note)}};
+ const purchasePrompt=()=>showModal('<h2>Make it yours in the full app</h2><p>The full version includes your own child profiles, editable routines and chores, custom rewards, printable charts and backup export.</p><p>This demo keeps sample data only. Nothing here checks or processes a purchase.</p><a class="buy-link" href="'+esc(releaseConfig.purchaseUrl)+'" target="_blank" rel="noopener noreferrer">View KeptApps on Etsy ↗</a>');
+ const blocked=new Set(['new-routine','edit-routine','add-child','delete-child','add-reward','remove-reward','export','restore','print','save-name','step-add','step-up','step-down','step-remove','delete-routine']);
+ const blockedV2=new Set(['add-chore','remove-chore','edit-board','schedule']);
+ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(blocked.has(b.dataset.action)||blockedV2.has(b.dataset.v2)){e.preventDefault();e.stopImmediatePropagation();purchasePrompt()}},true);
+ document.addEventListener('submit',e=>{if(e.target.id==='child-form'){e.preventDefault();e.stopImmediatePropagation();purchasePrompt()}},true);
+ seedDemo();
+}else render();
+if('serviceWorker'in navigator&&location.protocol!=='file:'){
+ window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(()=>{const foot=app.querySelector('.footnote');if(foot)foot.textContent+=' · Offline installation is not available in this browser.'})});
+}
