@@ -4,3 +4,10 @@ html{scroll-padding-top:80px}body{overflow-wrap:break-word}button{-webkit-tap-hi
 @media print{.release-banner,.install-help,.demo-locked-note{display:none!important}.app-frame{display:block}.print-chart{break-inside:auto}.checklist li{break-inside:avoid}body{font-size:12pt}}
 
 img.emoji{width:1em!important;height:1em!important;display:inline-block!important;margin:0 .04em 0 .04em!important;vertical-align:-.13em!important;object-fit:contain;filter:none!important;animation:none!important}.routine-icon img.emoji,.task-picture img.emoji,.big-icon img.emoji{margin:0!important}.picture-palette button{display:grid;place-items:center}.picture-palette img.emoji{width:1.3em!important;height:1.3em!important}
+
+/* Keep parent settings visible on shorter desktop screens. */
+.nav-scroll{display:flex;flex-direction:column;gap:7px;min-height:0}.grownup-nav{flex-shrink:0!important}
+@media(min-width:761px){.side-nav{position:sticky;top:var(--header-height,80px);height:calc(100vh - var(--header-height,80px) - var(--banner-height,0px));height:calc(100dvh - var(--header-height,80px) - var(--banner-height,0px));min-height:0;align-self:start;padding:18px 12px;overflow:hidden}.navigation-title{flex-shrink:0}.nav-scroll{overflow-y:auto;overflow-x:hidden;flex:1;scrollbar-width:thin;padding:3px}.nav-scroll button{flex-shrink:0}.side-nav .grownup-nav{margin-top:10px;border-top:1px solid var(--line);border-radius:12px;background:#f4f1ff;color:#5143cd}.side-note{flex-shrink:0;padding:14px 12px 0;font-size:.72rem}}
+@media(min-width:761px) and (max-height:760px){.side-note{display:none}}
+@media(max-width:760px){.nav-scroll{display:contents}.grownup-nav{background:#eeebff!important}}
+@media print{.nav-scroll{display:none!important}}

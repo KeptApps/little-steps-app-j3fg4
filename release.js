@@ -18,3 +18,6 @@ if(releaseConfig.mode==='demo'){
 if('serviceWorker'in navigator&&location.protocol!=='file:'){
  window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(()=>{const foot=app.querySelector('.footnote');if(foot)foot.textContent+=' · Offline installation is not available in this browser.'})});
 }
+
+function sizeNavigation(){const header=app.querySelector('header'),banner=app.querySelector('.release-banner');document.documentElement.style.setProperty('--header-height',(header?.getBoundingClientRect().height||80)+'px');document.documentElement.style.setProperty('--banner-height',(banner?.getBoundingClientRect().height||0)+'px')}
+const navigationRender=render;render=function(){navigationRender();sizeNavigation()};window.addEventListener('resize',sizeNavigation);sizeNavigation();

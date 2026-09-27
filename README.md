@@ -4,7 +4,7 @@ This folder is ready for a GitHub Pages repository. There is no build step and n
 
 ## Upload
 
-1. Create a repository named `little-steps-app-m8q4` (or choose your own name).
+1. Create a repository named `little-steps-app-j3fg4` (or choose your own name).
 2. Upload ALL files and the `emoji` folder from this folder to the repository root on `main`.
 3. Confirm `index.html` is at the root, alongside `app.js`, `config.js`, images and stylesheets.
 4. Open Settings → Pages → Deploy from a branch → `main` → `/(root)` → Save.
